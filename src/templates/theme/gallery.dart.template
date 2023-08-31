@@ -4,6 +4,10 @@
     const gradients = allTokens.Gradient; 
     const spacing = allTokens.EdgeInsets; 
     const font = allTokens.TextStyle; 
+
+    function valuePreviewWidgetName(prop) {
+      return '_' + pascalCase(toDartType(prop));
+    }
 %>
 //
 // <%= file.destination %>
@@ -46,7 +50,7 @@ class _<%= categoryName %>Section extends StatelessWidget {
                 _Header('<%= categoryName %>'),
                 <% categoryTokens.map(function(prop) { %> _Token(
                     name: '<%= prop.name %>',
-                    child: _<%= categoryName %>(theme.<%= camelCase(categoryName) %>.<%= prop.name %>),
+                    child: <%= valuePreviewWidgetName(prop) %>(theme.<%= camelCase(categoryName) %>.<%= prop.name %>),
                 ),
                 <% },); %>
             ],
@@ -122,7 +126,7 @@ class _Token extends StatelessWidget {
     }
 }
 
-<% if (icons) { %>
+<% if(icons && icons.length > 0) { %>
 class _Vector extends StatelessWidget {
   const _Vector(this.value,{
     Key? key,
@@ -137,7 +141,6 @@ class _Vector extends StatelessWidget {
 }
 <% } %>
 
-<% if (font) { %>
 class _TextStyle extends StatelessWidget {
   const _TextStyle(this.value,{
     Key? key,
@@ -150,7 +153,6 @@ class _TextStyle extends StatelessWidget {
     return Text('Hello world!', style: value);
   }
 }
-<% } %>
 
 class _Double extends StatelessWidget {
   const _Double(this.value,{
@@ -191,7 +193,6 @@ class _Breakpoint extends StatelessWidget {
   }
 }
 
-<% if (spacing) { %>
 class _EdgeInsets extends StatelessWidget {
   const _EdgeInsets(this.value,{
     Key? key,
@@ -218,9 +219,7 @@ class _EdgeInsets extends StatelessWidget {
     );
   }
 }
-<% } %>
 
-<% if (colors) { %>
 class _Color extends StatelessWidget {
   const _Color(this.value,{
     Key? key,
@@ -246,9 +245,7 @@ class _Color extends StatelessWidget {
     );
   }
 }
-<% } %>
 
-<% if (gradients) { %>
 class _Gradient extends StatelessWidget {
   const _Gradient(this.value,{
     Key? key,
@@ -274,4 +271,3 @@ class _Gradient extends StatelessWidget {
     );
   }
 }
-<% } %>

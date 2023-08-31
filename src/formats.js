@@ -4,7 +4,7 @@ const _template = require('lodash/template');
 const _ = require('style-dictionary/lib/utils/es6_');
 const { fileHeader, sortByReference, sortByName, } = require('style-dictionary/lib/common/formatHelpers');
 
-const supportedCategories = ['color', 'custom-gradient', 'custom-fontStyle', 'dimension', 'custom-spacing', 'radius', 'radius', 'breakpoints', 'custom-icon'];
+const supportedCategories = ['color', 'custom-gradient', 'custom-fontStyle', 'dimension', 'custom-spacing', 'radius', 'breakpoints', 'custom-icon', 'spacing', 'typography'];
 
 function groupBy(list, keyGetter) {
     var map = {};
@@ -41,7 +41,7 @@ function groupTokensByCategory(dictionary, options) {
             case 'sizes':
                 return 'Size';
             default:
-                return _.upperFirst(toDartType(token));
+                return _.upperFirst(token.attributes.category);
         }
     });
 }
@@ -70,6 +70,6 @@ module.exports = {
         const template = _template(
             fs.readFileSync(__dirname + '/templates/theme/gallery.dart.template')
         );
-        return template({ allTokens: groupTokensByCategory(dictionary, options), camelCase: _.camelCase, file, options, fileHeader });
+        return template({ allTokens: groupTokensByCategory(dictionary, options), camelCase: _.camelCase, pascalCase: (str) => _.upperFirst(_.camelCase(str)), toDartType, file, options, fileHeader });
     },
 }
