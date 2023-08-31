@@ -122,6 +122,7 @@ class _Token extends StatelessWidget {
     }
 }
 
+<% if (icons) { %>
 class _Vector extends StatelessWidget {
   const _Vector(this.value,{
     Key? key,
@@ -134,7 +135,9 @@ class _Vector extends StatelessWidget {
     return <%= file.prefix %>Icon(value);
   }
 }
+<% } %>
 
+<% if (font) { %>
 class _TextStyle extends StatelessWidget {
   const _TextStyle(this.value,{
     Key? key,
@@ -147,6 +150,7 @@ class _TextStyle extends StatelessWidget {
     return Text('Hello world!', style: value);
   }
 }
+<% } %>
 
 class _Double extends StatelessWidget {
   const _Double(this.value,{
@@ -187,6 +191,7 @@ class _Breakpoint extends StatelessWidget {
   }
 }
 
+<% if (spacing) { %>
 class _EdgeInsets extends StatelessWidget {
   const _EdgeInsets(this.value,{
     Key? key,
@@ -213,7 +218,9 @@ class _EdgeInsets extends StatelessWidget {
     );
   }
 }
+<% } %>
 
+<% if (colors) { %>
 class _Color extends StatelessWidget {
   const _Color(this.value,{
     Key? key,
@@ -239,7 +246,9 @@ class _Color extends StatelessWidget {
     );
   }
 }
+<% } %>
 
+<% if (gradients) { %>
 class _Gradient extends StatelessWidget {
   const _Gradient(this.value,{
     Key? key,
@@ -265,3 +274,4 @@ class _Gradient extends StatelessWidget {
     );
   }
 }
+<% } %>
